@@ -12,6 +12,14 @@ def doCalibrationToFile(numOfCars, filename):
         @type filename: str
         '''
 
+def doCalibrationToFileUsingDefaultFile(numOfCars, filename):
+        '''
+        @summary: start a calibration and save the calibration data into the standard file,
+                   which is loaded automatically by the initialization of the cars.
+        @type numOfCars: int
+        @type filename: str
+        '''
+
 def setImage4NoCameraMode(newImage):
         '''
         @summary: sets a new ground image for the no camera mode.
