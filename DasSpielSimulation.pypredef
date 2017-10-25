@@ -1,0 +1,412 @@
+def loadImage(filename):
+        '''
+        @summary: imports an image from the given file path.
+        @type filename: str
+        @rtype: Image
+        '''
+
+def doCalibrationToFile(numOfCars, filename):
+        '''
+        @summary: start a calibration and save the calibration data into the given file.
+        @type numOfCars: int
+        @type filename: str
+        '''
+
+def setImage4NoCameraMode(newImage):
+        '''
+        @summary: sets a new ground image for the no camera mode.
+        @type newImage: cvImage
+        '''
+
+def grabFromCamera():
+        '''
+        @summary: graps a new image from the camera.
+        @rtype: cvImage
+        '''
+
+def displayImage(image, windowname):
+        '''
+        @summary: displays an cvImage in a given window name.
+        @type image: cvImage
+        @type windowname: str
+        '''
+
+def closeWindow(windowname):
+        '''
+        @summary: closes a given window name.
+        @type windowname: str
+        '''
+
+def loadcvImage(filename):
+        '''
+        @summary: imports a cvImage from the given file path.
+        @type filename: str
+        @rtype: cvImage
+        '''
+
+def savecvImage(cvImage, filename):
+        '''
+        @summary: saves a cvImage on the given file path.
+        @type cvImage: cvImage
+        @type filename: str
+        '''
+
+def insertImageIntoImage(destinationCvImage, sourceCvImage, xOffset, yOffset):
+        '''
+        @summary: insert a cvImage into another cvImage.
+        @type destinationCvImage: cvImage
+        @type sourceCvImage: cvImage
+        @type xOffset: int
+        @type yOffset: int
+        '''
+
+def generateField(width, height, boxSize):
+        '''
+        @summary: generate a cvImage with a checkerboard pattern.
+        @type width: int
+        @type height: int
+        @type boxSize: int
+        @rtype: cvImage
+        '''
+
+def createColorField(width, height, color):
+        '''
+        @summary: generate a cvImage with the given color.
+        @type width: int
+        @type height: int
+        @type color: Color
+        @rtype: cvImage
+        '''
+
+def colorField(image, xOffset, yOffset, width, height, color):
+        '''
+        @summary: colors a given area of a given cvImage with a given color.
+        @type image: cvImage
+        @type xOffset: int
+        @type yOffset: int
+        @type width: int
+        @type height: int
+        @type color: Color
+        '''
+
+class Item:
+    image = Image
+    position = Point
+    width = int
+    height = int
+
+class ItemManager:
+    def addItem(self, item):
+        '''
+        @summary: adds an item to the list of items that are displayed by the ItemManager.
+        @type item: Item
+        '''
+
+    def createAndAddItem(self, image, position):
+        '''
+        @summary: creates an Item based on the given Image at the defined position.
+        @type image: Image
+        @type position: Point
+        @rtype: Item
+        '''
+
+    def removeItem(self, item):
+        '''
+        @summary: removes the given Item from the ItemManager, so it won't be displayed anymore.
+        @type item: Item
+        '''
+
+    def collectGarbage(self):
+        '''
+        @summary: removes items from the ItemManager, that are no longer referenced from python objects.
+        '''
+
+    def getListOfItems(self):
+        '''
+        @summary: obtains a list of the all referenced Items.
+        @rtype: list(Item)
+        @note: if you want to have access to the properties/functions of Item set a new variable for it, e.g. item0 = list[0]
+        '''
+
+class Point:
+    x = float
+    y = float
+    def __init__(self, x, y):
+        '''
+        @type x: float
+        @type y: float
+        @rtype: Point
+        '''
+
+class Color:
+    def __init__(self, r, g, b):
+        '''
+        @summary: Color coded in RGB (or in HSV for the car detection).
+        @type r: float
+        @type g: float
+        @type b: float
+        @rtype: Color
+        '''
+
+class cvImage:
+    width = int
+    height = int
+    def clone(self):
+        '''
+        @summary: create a copy of the cvImage, which can be edited without regards.
+        @rtype: cvImage
+        '''
+
+def getWindow():
+        '''
+        @summary: obtain the main window, which is used for the game.
+        @rtype: Window
+        '''
+
+class Window:
+    width = int
+    height = int
+    name = str
+    lyingItemsManager = ItemManager
+    standingItemsManager = ItemManager
+    frontItemsManager = ItemManager
+    carManager = CarManager
+
+    def setSize(self, newWidth, newHeight):
+        '''
+        @summary: changes the width/height of the window in pixels.
+        @type newWidth: int
+        @type newHeight: int
+        '''
+
+    def display(self):
+        '''
+        @summary: displays the latest calculated image for the window. Returns the pressed key as integer.
+        @rtype: int
+        @precondition: 'self.asyncHandleCarsAndBackground(Image)' has been executed
+        @precondition: 'self.asyncCalcViews()' has been executed
+        @precondition: 'self.wait4Asyncs()' has been executed
+        @precondition: 'self.calcFront()' has been executed
+        '''
+
+    def asyncHandleCarsAndBackground(self, cvImage):
+        '''
+        @summary: searches for Cars and manipulates the ground.
+        @type cvImage: Image
+        @note: works in the background, use 'self.wait4Asyncs()' to make sure its finished.
+        '''
+
+    def searchCars(self, image):
+        '''
+        @summary: blocking call for searching the cars in the given image.
+        @type image: cvImage
+        @note: the recommendation is to use 'self.asyncHandleCarsAndBackground(cvImage)' instead.
+        '''
+
+    def calcBackground(self, image):
+        '''
+        @summary: blocking call for editing the ground with the lying items in it.
+        @type image: cvImage
+        @note: the recommendation is to use 'self.asyncHandleCarsAndBackground(cvImage)' instead.
+        '''
+
+    def addCarPos2Background(self):
+        '''
+        @summary: displays the car images on the ground.
+        @note: this is done automatically by the 'self.calcViews()' and 'self.asyncCalcViews()' functions.
+        '''
+
+    def calcViews(self):
+        '''
+        @summary: blocking call for calculation of the standing items and the perspective of the views.
+        '''
+
+    def calcFront(self):
+        '''
+        @summary: inserts the pictures in the front.
+        @precondition: 'self.asyncHandleCarsAndBackground(Image)' has been executed
+        @precondition: 'self.asyncCalcViews()' has been executed
+        @precondition: 'self.wait4Asyncs()' has been executed
+        '''
+
+    def asyncCalcViews(self):
+        '''
+        @summary: asynchronously call for calculation of the standing items and the perspective of the views.
+        @note: working in background, use 'self.wait4Asyncs()' to make sure its finished.
+        '''
+
+    def wait4Asyncs(self):
+        '''
+        @summary: wait for asynchronous functions like 'self.asyncCalcViews()' or 'self.asyncHandleCarsAndBackground(Image)' to finish.
+        @note: contained in 'self.asyncHandleCarsAndBackground()'
+        @note: contained in 'self.calcFront()'
+        @note: contained in 'self.asyncCalcViews()'
+        @note: contained in 'self.display()'
+        '''
+
+    def close(self):
+        '''
+        @summary: closes the window.
+        '''
+
+    def createView(self, width, height, xOffset, yOffset):
+        '''
+        @summary: creates a view inside of the window area.
+        @note: views have to be in the window and shouldn't overlap.
+        @type width: int
+        @type height: int
+        @type xOffset: int
+        @type yOffset: int
+        @rtype: View
+        '''
+
+    def getListOfViews(self):
+        '''
+        @summary: obtains a list of the all referenced Views.
+        @rtype: list(View)
+        @note: if you want to have access to the properties/functions of View set a new variable for it, e.g. view0 = list[0]
+        '''
+
+    def removeView(self, view):
+        '''
+        @summary: removes the view from the window.
+        @type view: View
+        '''
+
+    def collectGarbage(self):
+        '''
+        @summary: removes views from the Window, that are no longer referenced from python objects.
+        '''
+
+class View:
+    position = Point
+    angle = float
+    angleInDegree = float
+    standingItemsManager = ItemManager
+    showLyingItems = True/False
+    showStandingItems = True/False
+    reverseDisplayorder = True/False
+    minItemDisplayPosition = True/False
+    maxItemDisplayPosition = True/False
+
+    def setViewFromCar(self, Car):
+        '''
+        @summary: paces the position of the view point on the position of the car.
+        @type Car: ACar
+        '''
+
+    def getSrcTransBoxCoord(self, cornerId):
+        '''
+        @summary: go to Arne and ask for his help.
+        @type cornerId: int
+        @rtype: Point
+        '''
+
+    def getDestBoxCoords(self, cornerId):
+        '''
+        @summary: go to Arne and ask for his help.
+        @type cornerId: int
+        @rtype: Point
+        '''
+
+    def setSrcTransBoxCoord(self, cornerId, position):
+        '''
+        @summary: go to Arne and ask for his help.
+        @type cornerId: int
+        @type position: Point
+        '''
+
+    def setDestBoxCoords(self, cornerId, position):
+        '''
+        @summary: go to Arne and ask for his help.
+        @type cornerId: int
+        @type position: Point
+        '''
+
+class CarManager:
+
+    def getListOfCars(self):
+        '''
+        @summary: returns a list of existing cars.
+        @rtype: list(ACar)
+        @note: if you want to have access to the properties/functions of ACar set a new variable for it, e.g. car0 = list[0]
+        '''
+
+    def collectGarbage(self):
+        '''
+        @summary: removes cars from the CarManager, that are no longer referenced from python objects.
+        '''
+
+    def createVirtualCar(self):
+        '''
+        @summary: creates a VirtualCar object, that can be used to simulate a car.
+        @rtype VirtualCar
+        '''
+
+    def createVirtualCarWithImage(self, image):
+        '''
+        @summary: creates a VirtualCar object, that can be used to simulate a car, which will be displayed with the given image.
+        @type image: Image
+        @rtype: VirtualCar
+        '''
+
+class Image:
+    cvImage = cvImage
+    width = int
+    height = int
+
+    def createResizedCopy(self, width, height):
+        '''
+        @summary: creates a copy of the image with the new size.
+        @type width: int
+        @type height: int
+        @rtype: Image
+        '''
+
+    def createRotatedCopyWithAngleInDegree(self, angleDegree):
+        '''
+        @summary: creates a copy of the image with the given rotation (angle given in degree).
+        @type angleDegree: float
+        @rtype: Image
+        '''
+
+    def createRotatedCopyWithAngleInRadian(self, angleRadian):
+        '''
+        @summary: creates a copy of the image with the given rotation (angle given in radian).
+        @type angleRadian: float
+        @rtype: Image
+        '''
+
+    def saveImage(self, fileName):
+        '''
+        @summary: saves the image at the given path.
+        @type fileName: str
+        '''
+
+class ACar:
+    dispImage = Image
+    position = Point
+    angle = float
+    angleInDegree = float
+
+class VirtualCar:
+    dispImage = Image
+    position = Point
+    angle = float
+    angleInDegree = float
+
+class RealCar:
+    dispImage = Image
+    position = Point
+    angle = float
+    angleInDegree = float
+    minPointDistance = int
+    maxPointDistance = int
+    frontAreaMinSize = int
+    frontAreaMaxSize = int
+    frontMinHSV = Color
+    frontMaxHSV = Color
+    rearAreaMinSize = int
+    rearAreaMaxSize = int
+    rearMinHSV = Color
+    rearMaxHSV = Color
