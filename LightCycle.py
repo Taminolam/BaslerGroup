@@ -17,7 +17,7 @@ import Config as Cfg
 class LightCycle():
 
     BIKE_STANDARD_IMAGES = (BAPI.loadImage(".\\Bilder\\Pfeil_orange-2.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270),
-                            BAPI.loadImage(".\\Bilder\\Pfeil_hellblau-2.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270))
+                            BAPI.loadImage(".\\Bilder\\baum.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270))
 
     def __init__(self, carId, dictOfKeys, startPosition, startAngleId):
         self._carId = carId
