@@ -148,6 +148,8 @@ class LightCycle():
                 actual_steer = LEFT_THRESHOLD
             elif keyboard.is_pressed(self._turnRightKey):
                 actual_steer = RIGHT_THRESHOLD
+            if keyboard.is_pressed(self._backwardKey):
+                self._car.throttle = -self._maxThrottle
 
         # limit steering repetition
         if time.clock() - self._steeringLastPressedTime >= Cfg.STEERING_INPUT_RELEASE_TIME_SEC:

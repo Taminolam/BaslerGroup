@@ -151,7 +151,7 @@ def handleCollisionOfLightCyclesWithBoundaries(distanceLimitPx, fieldWidthPx, fi
             or position.x > (fieldWidthPx - distanceLimitForFieldLimitsPx)
             or position.y < distanceLimitForFieldLimitsPx
             or position.y > (fieldHeightPx - distanceLimitForFieldLimitsPx)):
-            bike.destroy()
+           pass #bike.destroy()
 
 
 def adaptViewsToFollowBikes(bikes, views):
