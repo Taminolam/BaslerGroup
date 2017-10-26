@@ -1,5 +1,5 @@
 ﻿import keyboard
-
+import pygame
 try:
     import DasSpiel as BAPI
 except ImportError:
