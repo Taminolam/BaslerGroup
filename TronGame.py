@@ -105,7 +105,7 @@ def initLightCycles():
              'turnRightKey':'d',
              'specialAbilityKey':'e' }
 
-    bike0 = LightCycle(0, bike0Keys, BAPI.Point(750, 500), 4)
+    bike0 = LightCycle(0, bike0Keys, BAPI.Point(1650, 600), 4)
 #bike0=rotes bike
     bike1Keys = {'forwardKey':'i',
                  'backwardKey':'k',
@@ -113,7 +113,7 @@ def initLightCycles():
                  'turnRightKey':'l',
                  'specialAbilityKey':'o' }
 
-    bike1 = LightCycle(1, bike1Keys, BAPI.Point(100, 500), 0)
+    bike1 = LightCycle(1, bike1Keys, BAPI.Point(120, 600), 0)
 #bike1=blaues bike(100
     bikes = (bike0, bike1)
 
