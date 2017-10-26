@@ -1,8 +1,8 @@
-from DasSpielSimulation import VirtualCar
 try:
     import DasSpiel as BAPI
 except ImportError:
     import DasSpielSimulation as BAPI
+    from DasSpielSimulation import VirtualCar
 
 import keyboard
 import math

@@ -27,7 +27,8 @@ def main():
     frontItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\Basler_Tron.png"), BAPI.Point(320, 5))
 
     # set the field ground image in simulation mode
-    BAPI.setImage4NoCameraMode(BAPI.loadcvImage(".\\Bilder\\Basler_Spielfeld.png"))
+    background = BAPI.loadcvImage(".\\Bilder\\Basler_Spielfeld.png")
+    BAPI.setImage4NoCameraMode(background)
     lightCycles = initLightCycles()
 
     # one grab and calculation to determine the cars positions and angles
@@ -48,8 +49,10 @@ def main():
     while True:
         # Basic game API code
         img = BAPI.grabFromCamera()
-        mainWindow.asyncHandleCarsAndBackground(img)
-        mainWindow.wait4Asyncs()
+        #mainWindow.asyncHandleCarsAndBackground(img)
+        #mainWindow.wait4Asyncs()
+        mainWindow.searchCars(img)
+        mainWindow.calcBackground(background)
 
         # Views need to be adapted here to create a smooth animation!
         adaptViewsToFollowBikes(lightCycles, views)
