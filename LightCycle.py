@@ -182,6 +182,9 @@ class LightCycle():
             steering = self.STEERING_LIMIT_ABS
         self._car.steeringAngle = steering
 
+        #example echtes auto: new_steer = limitToUInt8((gamepad.axis.x * 128) + 128)
+        #example simuliertes auto: self._car.steeringAngle = limitToUInt8((gamepad.axis.x * 100) + 100)
+          
         steer_override = limitToUInt8((steering * 128 // 100) + Cfg.CARRERA_REMOTE_ZERO_OFFSET)
         throttle_override = limitToUInt8((self._car.throttle * 128 // 100) + Cfg.CARRERA_REMOTE_ZERO_OFFSET)
         self._remoteControl.set_override_out_both(self._remoteIp, steer_override, throttle_override)
