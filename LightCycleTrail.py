@@ -19,9 +19,9 @@ class LightCycleTrail():
         self._graphicsObjectManager = graphicsObjectManager
         self._image = self.TRAIL_STANDARD_IMAGES[bike._carId]
         self._trailObjects = []
-        self.MIN_OBJECT_DISTANCE = 0.09 #abstandzwischendenspurteilchen
-        self._metersSinceLastObject = 0.0 
-        self._lengthLimit = 0
+        self.MIN_OBJECT_DISTANCE = 0.09
+        self._metersSinceLastObject = 0.0
+        self._lengthLimit = 120
         self._lastBikePositions = []
         self._delayedTrailObjects = 2
 
