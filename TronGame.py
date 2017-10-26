@@ -21,7 +21,7 @@ def main():
     mainWindow = initMainWindow("Tron", Cfg.MAIN_WINDOW_WIDTH_PX, Cfg.MAIN_WINDOW_HEIGHT_PX)
     # standingItems = mainWindow.standingItemsManager
     lyingItems = mainWindow.lyingItemsManager
-
+    
     # the item manager for head up displays
     frontItems = mainWindow.frontItemsManager
     frontItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\Basler_Tron.png"), BAPI.Point(320, 5))
@@ -103,16 +103,18 @@ def initLightCycles():
              'backwardKey':'s',
              'turnLeftKey':'a',
              'turnRightKey':'d',
-             'specialAbilityKey':'e' }
-
+             'specialAbilityKey':'e', 
+             'specialRoundKey':'f',}
+             
     bike0 = LightCycle(0, bike0Keys, BAPI.Point(1650, 600), 4)
 #bike0=rotes bike
     bike1Keys = {'forwardKey':'i',
                  'backwardKey':'k',
                  'turnLeftKey':'j',
                  'turnRightKey':'l',
-                 'specialAbilityKey':'o' }
-
+                 'specialAbilityKey':'o',
+                 'specialRoundKey':'ö',}
+                
     bike1 = LightCycle(1, bike1Keys, BAPI.Point(120, 600), 0)
 #bike1=blaues bike(100
     bikes = (bike0, bike1)
@@ -127,7 +129,7 @@ def initBikeTrails(graphicsObjectManager, bikes):
 
 
 def  handleCollisionOfLightCyclesAndTrails(distanceLimitPx, lightCycles, trails):
-    # collision with light cycle trails trails
+    # collision with light cycle trails trail
     for trail in trails:
         collisions = trail.getCollidedObjects(lightCycles, distanceLimitPx)
         if len(collisions) > 0:

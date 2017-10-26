@@ -17,7 +17,7 @@ import Config as Cfg
 class LightCycle():
 
     BIKE_STANDARD_IMAGES = (BAPI.loadImage(".\\Bilder\\Pfeil_orange-2.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270),
-                            BAPI.loadImage(".\\Bilder\\baum.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270))
+                            BAPI.loadImage(".\\Bilder\\pfeil_hellblau-2.png").createResizedCopy(30, 64).createRotatedCopyWithAngleInDegree(270))
 
     def __init__(self, carId, dictOfKeys, startPosition, startAngleId):
         self._carId = carId
@@ -32,7 +32,8 @@ class LightCycle():
         self._turnLeftKey = dictOfKeys['turnLeftKey']
         self._turnRightKey = dictOfKeys['turnRightKey']
         self._specialAbilityKey = dictOfKeys['specialAbilityKey']
-
+        self._specialRoundKey = dictOfKeys['specialRoundKey']
+       
         self._car.position = startPosition
 
         # Simulation or real world car?
@@ -42,22 +43,25 @@ class LightCycle():
         self.DRIVING_AGLE_COUNT = 8
         self._actualDrivingAngleId = startAngleId
         self._possibleDrivingAnglesRad = [math.radians(0),
-                                          math.radians(45),
-                                          math.radians(90),
-                                          math.radians(135),
-                                          math.radians(180),
-                                          math.radians(225),
-                                          math.radians(270),
-                                          math.radians(315),
-                                          math.radians(360),]
+                                         math.radians(45),
+                                         math.radians(90),
+                                         math.radians(135),
+                                         math.radians(180),
+                                         math.radians(225),
+                                         math.radians(270),
+                                         math.radians(315),
+                                         math.radians(360),]
 
         # Steering control parameters
         self._feedbackControlFactorP = 4.0
 
         self._steeringLastPressedTime = Cfg.STEERING_INPUT_RELEASE_TIME_SEC
         self.STEERING_LIMIT_ABS = 100
-
-        self._maxThrottle = 40
+       
+                                                         
+        self._Round= 30
+        self._Throttle = 100
+        self._maxThrottle = 15
         if Cfg.LIGHTCYCLES_PERMANENTLY_DRIVING:
             self._minThrottle = 28
         else:
@@ -150,7 +154,11 @@ class LightCycle():
                 actual_steer = RIGHT_THRESHOLD
             if keyboard.is_pressed(self._backwardKey):
                 self._car.throttle = -self._maxThrottle
-
+            if keyboard.is_pressed(self._specialAbilityKey):
+                self._car.throttle = self._Throttle
+            if keyboard.is_pressed(self._specialRoundKey):
+                self._car.throttle = self._Round
+            
         # limit steering repetition
         if time.clock() - self._steeringLastPressedTime >= Cfg.STEERING_INPUT_RELEASE_TIME_SEC:
             if actual_steer <= LEFT_THRESHOLD:
@@ -189,5 +197,5 @@ class LightCycle():
           
         steer_override = limitToUInt8((steering * 128 // 100) + Cfg.CARRERA_REMOTE_ZERO_OFFSET)
         throttle_override = limitToUInt8((self._car.throttle * 128 // 100) + Cfg.CARRERA_REMOTE_ZERO_OFFSET)
-        self._remoteControl.set_override_out_both(self._remoteIp, steer_override, throttle_override)
+        #self._remoteControl.set_override_out_both(self._remoteIp, steer_override, throttle_override)
 
