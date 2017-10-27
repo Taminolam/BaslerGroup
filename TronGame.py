@@ -5,12 +5,13 @@ try:
 except ImportError:
     import DasSpielSimulation as BAPI
 # BAPI may stand for "Basler API" :-)
-
+from Ball import Ball
 import GameSounds
 from GameHelper import calcDistance
 from LightCycle import LightCycle
 from LightCycleTrail import LightCycleTrail
 import Config as Cfg
+import math
 
 
 # Script entry function.
@@ -19,7 +20,7 @@ def main():
 
 
     mainWindow = initMainWindow("Tron", Cfg.MAIN_WINDOW_WIDTH_PX, Cfg.MAIN_WINDOW_HEIGHT_PX)
-    # standingItems = mainWindow.standingItemsManager
+    standingItems = mainWindow.standingItemsManager
     lyingItems = mainWindow.lyingItemsManager
     
     # the item manager for head up displays
@@ -41,6 +42,8 @@ def main():
     trails = initBikeTrails(lyingItems, lightCycles)
 
     views = initViews(mainWindow, lightCycles)
+    
+    ball = Ball (BAPI.Point(900, 600),standingItems)
     
     GameSounds.playsound1Sound()
     GameSounds.playsound2Sound()
@@ -74,6 +77,7 @@ def main():
                 lyingItems.removeItem(item)
             lightCycles = initLightCycles()
             trails = initBikeTrails(lyingItems, lightCycles)
+            ball._position = BAPI.Point(900,600) 
             GameSounds.stopSoundPlayback()
             GameSounds.playsound1Sound()
             GameSounds.playsound2Sound()
@@ -91,7 +95,9 @@ def main():
                                                    Cfg.FIELD_WIDTH_PX,
                                                    Cfg.FIELD_HEIGHT_PX,
                                                    lightCycles)
+        handleCollisonOfBall(lightCycles, ball)
 
+        ball.update()
 
 def initMainWindow(name, fieldWidthPx, fieldHeightPx):
     mainWindow = BAPI.getWindow()
@@ -139,7 +145,13 @@ def  handleCollisionOfLightCyclesAndTrails(distanceLimitPx, lightCycles, trails)
             for collision in collisions:
                 lightCycles[collision[0]._carId].destroy()
                 
-                
+def handleCollisonOfBall (cars,ball):
+    for car in cars: 
+        
+        if calcDistance(ball._position, car._car.position) <= 40:
+            ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*10)              
+            
+            
 def handleCollisionOfLightCyclesWithEachOther(distanceLimitPx, lightCycles):
     # collision lightCycles with each other
     if calcDistance(lightCycles[0].getPosition(), lightCycles[1].getPosition()) < distanceLimitPx:
@@ -156,7 +168,7 @@ def handleCollisionOfLightCyclesWithBoundaries(distanceLimitPx, fieldWidthPx, fi
             or position.x > (fieldWidthPx - distanceLimitForFieldLimitsPx)
             or position.y < distanceLimitForFieldLimitsPx
             or position.y > (fieldHeightPx - distanceLimitForFieldLimitsPx)):
-           pass #bike.destroy()
+            pass #bike.destroy()
 
 
 def adaptViewsToFollowBikes(bikes, views):
