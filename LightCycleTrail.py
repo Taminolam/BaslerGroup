@@ -12,8 +12,8 @@ from GameHelper import calcDistance
 # It handles objects, that represent the trail of the field.
 class LightCycleTrail():
 
-    TRAIL_STANDARD_IMAGES = (BAPI.loadImage(".\\Bilder\\TronTrailRed.png").createRotatedCopyWithAngleInDegree(270),
-                             BAPI.loadImage(".\\Bilder\\TronTrailBlue.png").createRotatedCopyWithAngleInDegree(270))
+    TRAIL_STANDARD_IMAGES = (BAPI.loadImage(".\\Bilder\\TronTrailRed.png").createRotatedCopyWithAngleInDegree(0),
+                             BAPI.loadImage(".\\Bilder\\TronTrailBlue.png").createRotatedCopyWithAngleInDegree(0))
 
     def __init__(self, graphicsObjectManager, bike):
         self._graphicsObjectManager = graphicsObjectManager
@@ -21,7 +21,7 @@ class LightCycleTrail():
         self._trailObjects = []
         self.MIN_OBJECT_DISTANCE = 0.09
         self._metersSinceLastObject = 0.0
-        self._lengthLimit = 120
+        self._lengthLimit = 0
         self._lastBikePositions = []
         self._delayedTrailObjects = 2
 
