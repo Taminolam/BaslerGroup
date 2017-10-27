@@ -29,5 +29,6 @@ class Ball():
         self._position.y = difference*(self.speed*math.cos(self.angle)) + self._position.y
         self.lastupdate = now
         self.item.position = self._position
+        self.speed = self.speed * (1-0.2*difference)
         
         
