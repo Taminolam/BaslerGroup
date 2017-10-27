@@ -20,37 +20,37 @@ def main():
     mainWindow = initMainWindow("Tron", Cfg.MAIN_WINDOW_WIDTH_PX, Cfg.MAIN_WINDOW_HEIGHT_PX)
     standingItems = mainWindow.standingItemsManager
     lyingItems = mainWindow.lyingItemsManager
-    #<blau>fostenlinks (300,=tiefe 600=breite))
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(300, 380))
-    #<blau>fostenrechts
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(300, 825))
-    #<blau>fostenhintenlinks
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(10, 380))
-    #<blau>fostenhintenrechts
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(10, 825))
-    #<blau>latte
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\deineLatte.png"), BAPI.Point(300, 600))
-    #<orange>
-    #<orange>fostenlinks
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1500, 825))
-    #<orange>fostenrechts
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1500, 380))
-    #<orange>latte
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\deineLatte.png"), BAPI.Point(1500, 600))
-     #<orange>fostenhintenlinks
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1780, 825))
-    #<orange>fostenhintenrechts
-    standingingItems = mainWindow.standingItemsManager
-    standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1780, 380))
+#     #<blau>fostenlinks (300,=tiefe 600=breite))
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(300, 380))
+#     #<blau>fostenrechts
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(300, 825))
+#     #<blau>fostenhintenlinks
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(10, 380))
+#     #<blau>fostenhintenrechts
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(10, 825))
+#     #<blau>latte
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\deineLatte.png"), BAPI.Point(300, 600))
+#     #<orange>
+#     #<orange>fostenlinks
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1500, 825))
+#     #<orange>fostenrechts
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1500, 380))
+#     #<orange>latte
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\deineLatte.png"), BAPI.Point(1500, 600))
+#      #<orange>fostenhintenlinks
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1780, 825))
+#     #<orange>fostenhintenrechts
+#     standingingItems = mainWindow.standingItemsManager
+#     standingingItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\fosten.png"), BAPI.Point(1780, 380))
     # the item manager for head up displays
     frontItems = mainWindow.frontItemsManager
     frontItems.createAndAddItem(BAPI.loadImage(".\\Bilder\\Basler_Tron.png"), BAPI.Point(320, 5))
@@ -176,11 +176,13 @@ def  handleCollisionOfLightCyclesAndTrails(distanceLimitPx, lightCycles, trails)
 def handleCollisonOfBall (cars,ball):
     for car in cars: 
         
-        if calcDistance(ball._position, car._car.position) <= 40:
-            ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*20)              
-    if ball._position.x <=0 or ball._position.x >=1200 or ball._position.y <=0 or ball._position.y >=1800: 
-        ball._position = BAPI.Point (900,600)      
-        ball.speed = 0    
+        if calcDistance(ball._position, car._car.position) <= 50:
+            ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*20)
+    ball._position.x = max(min(ball._position.x, 1700), 100)
+    ball._position.y = max(min(ball._position.y, 1100), 100)              
+    #if ball._position.x <=0 or ball._position.x >=1800 or ball._position.y <=0 or ball._position.y >=1200: 
+    #    ball._position = BAPI.Point (900,600)      
+    #    ball.speed = 0    
 def handleCollisionOfLightCyclesWithEachOther(distanceLimitPx, lightCycles):
     # collision lightCycles with each other
     if calcDistance(lightCycles[0].getPosition(), lightCycles[1].getPosition()) < distanceLimitPx:
