@@ -1,9 +1,9 @@
-from DasSpielSimulation import ItemManager
 try:
     import DasSpiel as BAPI
 except ImportError:
     import DasSpielSimulation as BAPI
-    from DasSpielSimulation import VirtualCar
+
+
 import time
 import math
 class Ball():

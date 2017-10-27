@@ -177,7 +177,7 @@ def handleCollisonOfBall (cars,ball):
     for car in cars: 
         
         if calcDistance(ball._position, car._car.position) <= 40:
-            ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*10)              
+            ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*20)              
     if ball._position.x <=0 or ball._position.x >=1200 or ball._position.y <=0 or ball._position.y >=1800: 
         ball._position = BAPI.Point (900,600)      
         ball.speed = 0    
