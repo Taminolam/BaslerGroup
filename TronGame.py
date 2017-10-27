@@ -179,10 +179,11 @@ def handleCollisonOfBall (cars,ball):
         if calcDistance(ball._position, car._car.position) <= 50:
             ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*20)
     ball._position.x = max(min(ball._position.x, 1700), 100)
-    ball._position.y = max(min(ball._position.y, 1100), 100)              
-    #if ball._position.x <=0 or ball._position.x >=1800 or ball._position.y <=0 or ball._position.y >=1200: 
-    #    ball._position = BAPI.Point (900,600)      
-    #    ball.speed = 0    
+    ball._position.y = max(min(ball._position.y, 1100), 100)       
+           
+    if (ball._position.y >380 and ball._position.y <820 and ball._position.x <320 and ball._position.x >0) or (ball._position.y >380 and ball._position.y <820 and ball._position.x >1480 and ball._position.x <1800): 
+        ball._position = BAPI.Point (900,600)      
+        ball.speed = 0    
 def handleCollisionOfLightCyclesWithEachOther(distanceLimitPx, lightCycles):
     # collision lightCycles with each other
     if calcDistance(lightCycles[0].getPosition(), lightCycles[1].getPosition()) < distanceLimitPx:
