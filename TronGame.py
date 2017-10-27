@@ -105,6 +105,7 @@ def main():
             lightCycles = initLightCycles()
             trails = initBikeTrails(lyingItems, lightCycles)
             ball._position = BAPI.Point(900,600) 
+            ball.speed = 0
             GameSounds.stopSoundPlayback()
             GameSounds.playsound1Sound()
             GameSounds.playsound2Sound()
@@ -177,8 +178,9 @@ def handleCollisonOfBall (cars,ball):
         
         if calcDistance(ball._position, car._car.position) <= 40:
             ball.shoot(-car._car.angle + math.pi/2, car._car.throttle*10)              
-            
-            
+    if ball._position.x <=0 or ball._position.x >=1200 or ball._position.y <=0 or ball._position.y >=1800: 
+        ball._position = BAPI.Point (900,600)      
+        ball.speed = 0    
 def handleCollisionOfLightCyclesWithEachOther(distanceLimitPx, lightCycles):
     # collision lightCycles with each other
     if calcDistance(lightCycles[0].getPosition(), lightCycles[1].getPosition()) < distanceLimitPx:
