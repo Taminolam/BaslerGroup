@@ -60,7 +60,7 @@ class LightCycle():
        
                                                          
         self._Round= 30
-        self._Throttle = 100
+        self._Throttle = 10000
         self._maxThrottle = 15
         if Cfg.LIGHTCYCLES_PERMANENTLY_DRIVING:
             self._minThrottle = 28
